@@ -1,0 +1,200 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="checkVAT"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:maes="clr-namespace:Microsoft.Activities.Extensions.Statements;assembly=Microsoft.Activities.Extensions"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Form" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="in_exception_Path" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>checkVAT_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="checkVAT" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="valueFromI37" />
+      <Variable x:TypeArguments="x:String" Name="valueFromI38" />
+      <Variable x:TypeArguments="s:Exception" Default="[new System.Exception(&quot;Exception 005: The code is not 9 or 11 digits&quot;)]" Name="wrongVATLengthException" />
+      <Variable x:TypeArguments="x:String" Name="valueFromI15" />
+      <Variable x:TypeArguments="x:String" Name="newVAT" />
+    </Sequence.Variables>
+    <maes:GetFromDictionary x:TypeArguments="x:String, x:String" Dictionary="[in_Form]" DisplayName="Get from dictionary" sap2010:WorkflowViewState.IdRef="GetFromDictionary`2_1" Key="I37" Value="[valueFromI37]" />
+    <If Condition="[valueFromI37.Contains(&quot;Yes&quot;)]" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <maes:GetFromDictionary x:TypeArguments="x:String, x:String" Dictionary="[in_Form]" DisplayName="Get from dictionary" sap2010:WorkflowViewState.IdRef="GetFromDictionary`2_2" Key="I38" Value="[valueFromI38]" />
+          <maes:GetFromDictionary x:TypeArguments="x:String, x:String" Dictionary="[in_Form]" DisplayName="Get from dictionary" sap2010:WorkflowViewState.IdRef="GetFromDictionary`2_3" Key="I15" Value="[valueFromI15]" />
+          <TryCatch DisplayName="Try process and register VAT, Catch 008 009" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+            <TryCatch.Try>
+              <If Condition="[valueFromI38.Length=9 or valueFromI38.Length=11]" sap2010:WorkflowViewState.IdRef="If_2">
+                <If.Then>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_6">
+                    <If Condition="[valueFromI38.Length=9 and valueFromI38.All(Function(x) char.IsDigit(x))]" sap2010:WorkflowViewState.IdRef="If_3">
+                      <If.Then>
+                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke VATRegister workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="EuropeanComission\VATRegister.xaml">
+                          <ui:InvokeWorkflowFile.Arguments>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_VAT">[valueFromI38]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_exception_Path">[in_exception_Path]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="in_company_Name">[valueFromI15]</InArgument>
+                          </ui:InvokeWorkflowFile.Arguments>
+                        </ui:InvokeWorkflowFile>
+                      </If.Then>
+                      <If.Else>
+                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
+                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke processVAT workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="EuropeanComission\processVAT.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_VAT">[valueFromI38]</InArgument>
+                              <OutArgument x:TypeArguments="x:String" x:Key="out_short_VAT">[newVAT]</OutArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                          </ui:InvokeWorkflowFile>
+                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke VATRegister workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="EuropeanComission\VATRegister.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_VAT">[newVAT]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_exception_Path">[in_exception_Path]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_company_Name">[valueFromI15]</InArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                          </ui:InvokeWorkflowFile>
+                        </Sequence>
+                      </If.Else>
+                    </If>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GenerateExceptionOutput workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="GenerateException\GenerateExceptionOutput.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="s:Exception" x:Key="in_Exception">[wrongVATLengthException]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Message">[wrongVATLengthException.Message]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_FullFilePath">[in_exception_Path+"\report.txt"]</InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                </If.Else>
+              </If>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception">
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+        </Sequence>
+      </If.Then>
+    </If>
+    <sads:DebugSymbol.Symbol>d0hDOlxVc2Vyc1x1c2VyXERvY3VtZW50c1xVaVBhdGhcV2luc3RvblNNRFJcRXhjZWxQcm9jZXNzaW5nXGNoZWNrVkFULnhhbWwrSgOUAQ4CAQFON06KAQIBAlIFUtYBAgE6UwWSAQoCAQNSwwFS0wECAT5STVJYAgE8UrcBUrwBAgE7UxNTPQIBBFUJkAEUAgEGVgtW3AECATRXC1fcAQIBLlgLjwEWAgEHVskBVtkBAgE4VlNWXgIBNla9AVbCAQIBNVfJAVfZAQIBMldTV14CATBXvQFXwgECAS9aD4QBFAIBCFodWlACAQlcE3keAgEUfBOCASsCAQxdFXgaAgEVgAFWgAF3AgESf1F/cgIBEH5Wfm8CAQ580gF8ggICAQ1dI11uAgEWXxllMQIBJmgZdiQCARdhU2FhAgEsY1xjagIBKmJeYnECAShfzAFf8AECASdpG24zAgEgbxt1MwIBGGtVa2MCASRsXWxlAgEiac0BafABAgEhcVVxXQIBHnNec2wCARxyYHJzAgEab84Bb/IBAgEZ</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="GetFromDictionary`2_1" sap:VirtualizedContainerService.HintSize="1201,138" />
+      <sap2010:ViewStateData Id="GetFromDictionary`2_2" sap:VirtualizedContainerService.HintSize="1054,138" />
+      <sap2010:ViewStateData Id="GetFromDictionary`2_3" sap:VirtualizedContainerService.HintSize="1054,138" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_4" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336,338">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="675,486" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="697,610">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="1036,758" />
+      <sap2010:ViewStateData Id="TryCatch_2" sap:VirtualizedContainerService.HintSize="1054,1088" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="1076,1568">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="1201,1716" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="1223,2018">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="checkVAT_1" sap:VirtualizedContainerService.HintSize="1263,2098">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="ShouldCollapseAll">False</x:Boolean>
+            <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

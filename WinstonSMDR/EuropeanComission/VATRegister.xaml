@@ -1,0 +1,219 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="VATRegister" this:VATRegister.in_VAT="269652852" this:VATRegister.in_exception_Path="C:\Users\user\Desktop" this:VATRegister.in_company_Name="MCCM INNOVATIONS LIMITED "
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:this="clr-namespace:"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_VAT" Type="InArgument(x:String)" />
+    <x:Property Name="in_exception_Path" Type="InArgument(x:String)" />
+    <x:Property Name="in_company_Name" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>VATRegister_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="VATRegister" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="notValidNumber" />
+      <Variable x:TypeArguments="s:Exception" Default="[new System.Exception(&quot;Exception 008 - It is not a valid VAT number&quot;)]" Name="notValidNumberException" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="checkText" />
+      <Variable x:TypeArguments="s:Exception" Default="[new System.Exception(&quot;Exception 009 - The names do not exactly match&quot;)]" Name="namesDoNotMatchException" />
+    </Sequence.Variables>
+    <ui:OpenBrowser UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Open Browser" Hidden="False" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" NewSession="True" Private="False" Url="http://ec.europa.eu/taxation_customs/vies/">
+      <ui:OpenBrowser.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <ui:MaximizeWindow Window="{x:Null}" DisplayName="Maximize Window" sap2010:WorkflowViewState.IdRef="MaximizeWindow_1" />
+            <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'SELECT  countryCombobox'" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="GB-United Kingdom">
+              <ui:SelectItem.Items>
+                <scg:List x:TypeArguments="x:String" Capacity="32">
+                  <x:String>--</x:String>
+                  <x:String>AT-Austria</x:String>
+                  <x:String>BE-Belgium</x:String>
+                  <x:String>BG-Bulgaria</x:String>
+                  <x:String>CY-Cyprus</x:String>
+                  <x:String>CZ-Czech Republic</x:String>
+                  <x:String>DE-Germany</x:String>
+                  <x:String>DK-Denmark</x:String>
+                  <x:String>EE-Estonia</x:String>
+                  <x:String>EL-Greece</x:String>
+                  <x:String>ES-Spain</x:String>
+                  <x:String>FI-Finland</x:String>
+                  <x:String>FR-France</x:String>
+                  <x:String>GB-United Kingdom</x:String>
+                  <x:String>HR-Croatia</x:String>
+                  <x:String>HU-Hungary</x:String>
+                  <x:String>IE-Ireland</x:String>
+                  <x:String>IT-Italy</x:String>
+                  <x:String>LT-Lithuania</x:String>
+                  <x:String>LU-Luxembourg</x:String>
+                  <x:String>LV-Latvia</x:String>
+                  <x:String>MT-Malta</x:String>
+                  <x:String>NL-The Netherlands</x:String>
+                  <x:String>PL-Poland</x:String>
+                  <x:String>PT-Portugal</x:String>
+                  <x:String>RO-Romania</x:String>
+                  <x:String>SE-Sweden</x:String>
+                  <x:String>SI-Slovenia</x:String>
+                  <x:String>SK-Slovakia</x:String>
+                </scg:List>
+              </ui:SelectItem.Items>
+              <ui:SelectItem.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2610a11be87480fba519df96a6be3d04" Selector="&lt;webctrl id='countryCombobox' tag='SELECT' /&gt;" WaitForReady="COMPLETE" />
+              </ui:SelectItem.Target>
+            </ui:SelectItem>
+            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  number'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="False" Text="[in_VAT+&quot;[k(tab)]&quot;+&quot;[k(tab)]&quot;+&quot;[k(tab)]&quot;+&quot;[k(enter)]&quot;]">
+              <ui:TypeInto.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c3c2c99492dc19df2edcc1a587003c29" Selector="&lt;webctrl id='number' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+              </ui:TypeInto.Target>
+            </ui:TypeInto>
+            <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'SPAN'" sap2010:WorkflowViewState.IdRef="GetValue_1">
+              <ui:GetValue.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="6e81d9c61358ad886c6952e3a3e3dcdc" Selector="&lt;webctrl parentid='vatResponseFormTable' tag='SPAN' /&gt;" WaitForReady="INTERACTIVE" />
+              </ui:GetValue.Target>
+              <ui:GetValue.Value>
+                <OutArgument x:TypeArguments="ui:GenericValue">[checkText]</OutArgument>
+              </ui:GetValue.Value>
+            </ui:GetValue>
+          </Sequence>
+        </ActivityAction>
+      </ui:OpenBrowser.Body>
+    </ui:OpenBrowser>
+    <If Condition="[checkText.Contains(&quot;invalid&quot;)]" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GenerateExceptionOutput workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="GenerateException\GenerateExceptionOutput.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="x:String" x:Key="in_Message">[notValidNumberException.Message]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_FullFilePath">[in_exception_Path+"\report.txt"]</InArgument>
+            <InArgument x:TypeArguments="s:Exception" x:Key="in_Exception">[notValidNumberException]</InArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+      </If.Then>
+      <If.Else>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="ui:GenericValue" Name="requestedName" />
+          </Sequence.Variables>
+          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'TD'" sap2010:WorkflowViewState.IdRef="GetValue_2">
+            <ui:GetValue.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d752e72633e0be81582248832c5085a8" Selector="&lt;html title='VIES' /&gt;&lt;webctrl id='vatResponseFormTable' tag='TABLE' /&gt;&lt;webctrl isleaf='1' tableCol='2' tableRow='6' tag='TD' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:GetValue.Target>
+            <ui:GetValue.Value>
+              <OutArgument x:TypeArguments="ui:GenericValue">[requestedName]</OutArgument>
+            </ui:GetValue.Value>
+          </ui:GetValue>
+          <If Condition="[in_company_Name.Equals(requestedName)]" sap2010:WorkflowViewState.IdRef="If_2">
+            <If.Else>
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GenerateExceptionOutput workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="GenerateException\GenerateExceptionOutput.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Message">[namesDoNotMatchException.Message]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_FullFilePath">[in_exception_Path+"\report.txt"]</InArgument>
+                  <InArgument x:TypeArguments="s:Exception" x:Key="in_Exception">[namesDoNotMatchException]</InArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+            </If.Else>
+          </If>
+        </Sequence>
+      </If.Else>
+    </If>
+    <sads:DebugSymbol.Symbol>d01DOlxVc2Vyc1x1c2VyXERvY3VtZW50c1xVaVBhdGhcV2luc3RvblNNRFJcRXVyb3BlYW5Db21pc3Npb25cVkFUUmVnaXN0ZXIueGFtbCUBWQFjAQQBwQEB2wEBAwGIAQGeAQECSgO2AQ4CAQFNN02JAQIBA083T4sBAgECUQWPARYCAR2QAQW0AQoCAQRRuwFR5wECAStXC4wBFgIBHpABE5ABPgIBBZIBCZgBIQIBFZsBCbIBFAIBBlgNWIUBAgEqWQ1+HQIBJ38NgwEbAgEjhAENiwEbAgEflQFMlQFtAgEblAFHlAFoAgEZlgFMlgFlAgEXkgHIAZIB+AECARafAQumARkCARGnAQuxARACAQdZzAFZ3wECASh8oAF81QECASmBAaABgQHLAQIBJn+nAn+HAwIBJIkBQIkBSwIBIIYBoAGGAd4BAgEipAE+pAFNAgESoQGeAaEBsQICARSnARmnAUICAQipAQ+vAScCAQmsAVKsAXMCAQ+rAU2rAW8CAQ2tAVKtAWwCAQupAc4BqQH+AQIBCg==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="MaximizeWindow_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="SelectItem_1" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="TypeInto_2" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="GetValue_1" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,640">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OpenBrowser_1" sap:VirtualizedContainerService.HintSize="825,739" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="GetValue_2" sap:VirtualizedContainerService.HintSize="464,106" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,235" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="486,505">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="825,653" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="847,1556">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="VATRegister_1" sap:VirtualizedContainerService.HintSize="887,1636" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
